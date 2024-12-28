@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 120  # turn off after 2 hours of running
+    timeout-minutes: 500  
     
     steps:
       - name: Enable Terminal Services and Firewall Rules

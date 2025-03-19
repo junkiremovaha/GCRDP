@@ -33,6 +33,12 @@ jobs:
           Invoke-WebRequest https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
           Start-Process msiexec.exe -ArgumentList '/i chromeremotedesktophost.msi /quiet /norestart' -Wait
           Start-Sleep -Seconds 50
+
+      - name: Install-vivaldi browser
+        run: |
+          Invoke-WebRequest -Uri "https://downloads.vivaldi.com/stable/Vivaldi.7.2.3621.63.x64.exe" -OutFile "vivaldi.exe"
+          Start-Process -FilePath "vivaldi.exe" -ArgumentList "/S" -Wait
+          
           
       - name: Start powershell to enable remote desktop
         run: |

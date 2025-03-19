@@ -34,12 +34,7 @@ jobs:
           Start-Process msiexec.exe -ArgumentList '/i chromeremotedesktophost.msi /quiet /norestart' -Wait
           Start-Sleep -Seconds 50
 
-      - name: Install-vivaldi browser
-        run: |
-          Invoke-WebRequest -Uri "https://downloads.vivaldi.com/stable/Vivaldi.7.2.3621.63.x64.exe" -OutFile "vivaldi.exe"
-          Start-Process -FilePath "vivaldi.exe" -ArgumentList "/S" -Wait
-          
-          
+
       - name: Start powershell to enable remote desktop
         run: |
           # Start PowerShell script to launch Chrome Remote Desktop host
@@ -55,6 +50,10 @@ jobs:
           [System.Windows.Forms.SendKeys]::SendWait("{ENTER}")
           Start-Sleep -Seconds 5
           Start-Sleep -Seconds 2160
+
+          # vivaldi install
+          Invoke-WebRequest -Uri "https://downloads.vivaldi.com/stable/Vivaldi.7.2.3621.63.x64.exe" -OutFile "vivaldi.exe"
+          Start-Process -FilePath "vivaldi.exe" -ArgumentList "/S" -Wait
           
           while ($true) {
              echo "Keep-Alive"

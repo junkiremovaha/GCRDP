@@ -51,10 +51,20 @@ jobs:
           Start-Sleep -Seconds 5
           Start-Sleep -Seconds 2160
 
-          # vivaldi install
-          Invoke-WebRequest -Uri "https://downloads.vivaldi.com/stable/Vivaldi.7.2.3621.63.x64.exe" -OutFile "vivaldi.exe"
-          Start-Process -FilePath "vivaldi.exe" -ArgumentList "/S" -Wait
+          # Download Vivaldi
+      - name: Install-vivaldi browser
+        run: |
+          $url = "https://downloads.vivaldi.com/stable/Vivaldi.3.8.2259.42.x64.exe"
+          $outpath = "$env:TEMP\vivaldi_installer.exe"
+          Invoke-WebRequest -Uri $url -OutFile $outpath
           
+          # Install Vivaldi silently
+          Start-Process -FilePath $outpath -ArgumentList "--vivaldi-silent --do-not-launch-chrome" -Wait
+          
+          # Clean up the installer
+          Remove-Item $outpath
+
+        
           while ($true) {
              echo "Keep-Alive"
              Start-Sleep -Seconds 60

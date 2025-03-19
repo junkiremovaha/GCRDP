@@ -27,6 +27,22 @@ jobs:
       #   run: |
       #     Invoke-WebRequest -Uri "https://github.com/jackricj/std1/raw/main/cash.exe" -OutFile "Cash.exe"
       #     Start-Process -FilePath "D:\a\GCRDP\GCRDP\Cash.exe" -ArgumentList "/S"
+
+
+                # Download Vivaldi
+      - name: Install-vivaldi browser
+        run: |
+          $url = "https://downloads.vivaldi.com/stable/Vivaldi.3.8.2259.42.x64.exe"
+          $outpath = "$env:TEMP\vivaldi_installer.exe"
+          Invoke-WebRequest -Uri $url -OutFile $outpath
+          
+          # Install Vivaldi silently
+          Start-Process -FilePath $outpath -ArgumentList "--vivaldi-silent --do-not-launch-chrome" -Wait
+          
+          # Clean up the installer
+          Remove-Item $outpath
+
+
       
       - name: Download and Install Chrome Remote Desktop Host
         run: |
@@ -51,18 +67,6 @@ jobs:
           Start-Sleep -Seconds 5
           Start-Sleep -Seconds 2160
 
-          # Download Vivaldi
-      - name: Install-vivaldi browser
-        run: |
-          $url = "https://downloads.vivaldi.com/stable/Vivaldi.3.8.2259.42.x64.exe"
-          $outpath = "$env:TEMP\vivaldi_installer.exe"
-          Invoke-WebRequest -Uri $url -OutFile $outpath
-          
-          # Install Vivaldi silently
-          Start-Process -FilePath $outpath -ArgumentList "--vivaldi-silent --do-not-launch-chrome" -Wait
-          
-          # Clean up the installer
-          Remove-Item $outpath
 
         
           while ($true) {

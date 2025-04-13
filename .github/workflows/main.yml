@@ -30,17 +30,17 @@ jobs:
 
 
                 # Download Vivaldi
-      - name: Install-vivaldi browser
-        run: |
-          $url = "https://downloads.vivaldi.com/stable/Vivaldi.3.8.2259.42.x64.exe"
-          $outpath = "$env:TEMP\vivaldi_installer.exe"
-          Invoke-WebRequest -Uri $url -OutFile $outpath
+      # - name: Install-vivaldi browser
+      #   run: |
+      #     $url = "https://downloads.vivaldi.com/stable/Vivaldi.3.8.2259.42.x64.exe"
+      #     $outpath = "$env:TEMP\vivaldi_installer.exe"
+      #     Invoke-WebRequest -Uri $url -OutFile $outpath
           
-          # Install Vivaldi silently
-          Start-Process -FilePath $outpath -ArgumentList "--vivaldi-silent --do-not-launch-chrome" -Wait
+      #     # Install Vivaldi silently
+      #     Start-Process -FilePath $outpath -ArgumentList "--vivaldi-silent --do-not-launch-chrome" -Wait
           
-          # Clean up the installer
-          Remove-Item $outpath
+      #     # Clean up the installer
+      #     Remove-Item $outpath
 
 
       

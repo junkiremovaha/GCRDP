@@ -19,47 +19,25 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+          
       - name: Set Password for runneradmin
         run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
+        
       - name: Rename Computer to nono1321
         run: Rename-Computer -NewName "Ag1"
-      # - name: Download and run Cashvib File
-      #   run: |
-      #     Invoke-WebRequest -Uri "https://github.com/jackricj/std1/raw/main/cash.exe" -OutFile "Cash.exe"
-      #     Start-Process -FilePath "D:\a\GCRDP\GCRDP\Cash.exe" -ArgumentList "/S"
-
-
-      
-
-
-                # Download Vivaldi
-      # - name: Install-vivaldi browser
-      #   run: |
-      #     $url = "https://downloads.vivaldi.com/stable/Vivaldi.3.8.2259.42.x64.exe"
-      #     $outpath = "$env:TEMP\vivaldi_installer.exe"
-      #     Invoke-WebRequest -Uri $url -OutFile $outpath
-          
-      #     # Install Vivaldi silently
-      #     Start-Process -FilePath $outpath -ArgumentList "--vivaldi-silent --do-not-launch-chrome" -Wait
-          
-      #     # Clean up the installer
-      #     Remove-Item $outpath
-
-
-      
+        
       - name: Download and Install Chrome Remote Desktop Host
         run: |
           Invoke-WebRequest https://dl.google.com/edgedl/chrome-remote-desktop/chromeremotedesktophost.msi -OutFile chromeremotedesktophost.msi
           Start-Process msiexec.exe -ArgumentList '/i chromeremotedesktophost.msi /quiet /norestart' -Wait
           Start-Sleep -Seconds 50
 
-
       - name: Download and run Antigravity
         run: |
           Invoke-WebRequest -Uri "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/2.5.5-4923483625488384/windows-x64/Antigravity%20IDE.exe" -OutFile "AntigravityIDE.exe"
-          Start-Process -FilePath "D:\a\GCRDP\GCRDP\AntigravityIDE.exe" -ArgumentList "/S" -NoNewWindow -Wait
-
-
+          # Removed -Wait and used a relative path to prevent infinite hanging
+          Start-Process -FilePath ".\AntigravityIDE.exe" -ArgumentList "/S" -NoNewWindow
+          Start-Sleep -Seconds 45 
 
       - name: Start powershell to enable remote desktop
         run: |
@@ -77,9 +55,8 @@ jobs:
           Start-Sleep -Seconds 5
           Start-Sleep -Seconds 2160
 
-
-
-        
+      - name: Keep-Alive Loop
+        run: |
           while ($true) {
              echo "Keep-Alive"
              Start-Sleep -Seconds 60

